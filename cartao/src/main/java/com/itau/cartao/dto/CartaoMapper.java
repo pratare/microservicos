@@ -40,6 +40,7 @@ public class CartaoMapper {
         cartaoAtivoResponse.setId(cartao.getId());
         cartaoAtivoResponse.setNumero(cartao.getNumeroCartao());
         cartaoAtivoResponse.setAtivo(cartao.getAtivo());
+        cartaoAtivoResponse.setClienteId(cartao.getClienteId());
 
         return cartaoAtivoResponse;
     }

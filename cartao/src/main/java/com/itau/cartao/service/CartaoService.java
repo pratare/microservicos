@@ -1,17 +1,18 @@
 package com.itau.cartao.service;
 
-import com.itau.cartao.client.ClientCliente;
-import com.itau.cartao.client.ClienteNotFoundException;
-import com.itau.cartao.dto.ClienteDTO;
-import com.itau.cartao.exception.CartaoNotFoundException;
-import com.itau.cartao.models.Cartao;
-import com.itau.cartao.repository.CartaoRepository;
-import feign.FeignException;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.Objects;
-import java.util.Optional;
+import com.itau.cartao.client.ClientCliente;
+import com.itau.cartao.client.ClienteDTO;
+import com.itau.cartao.client.ClienteNotFoundException;
+import com.itau.cartao.exception.CartaoNotFoundException;
+import com.itau.cartao.models.Cartao;
+import com.itau.cartao.repository.CartaoRepository;
+
+import feign.FeignException;
 
 @Component
 public class CartaoService {
@@ -36,12 +37,14 @@ public class CartaoService {
 
     public Cartao criarCartao(Cartao cartao) {
         ClienteDTO byId = null;
-        cartao.setAtivo(false);
+        
         try {
             byId = clientService.getClienteById(cartao.getClienteId());
         } catch (FeignException.BadRequest  e){
             throw new ClienteNotFoundException();
         }
+        cartao.setAtivo(false);
+        
         return cartaoRepository.save(cartao);
     }
 
