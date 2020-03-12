@@ -34,7 +34,18 @@ public class CartaoService {
         return cartaoOptional.get();
 
     }
+    
+    public Cartao mostrarCartaoId(Integer id) {
+    	Optional<Cartao> cartaoOptional = cartaoRepository.findById(id);
 
+        if(!cartaoOptional.isPresent()) {
+            throw new CartaoNotFoundException();
+        }
+
+        return cartaoOptional.get();
+
+    }
+    
     public Cartao criarCartao(Cartao cartao) {
         ClienteDTO byId = null;
         

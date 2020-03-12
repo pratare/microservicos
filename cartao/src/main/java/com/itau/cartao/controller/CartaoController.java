@@ -30,6 +30,13 @@ public class CartaoController {
         return cartaoMapper.toCartaoDetalheResponse(cartao);
 
 	}
+	
+	@GetMapping("/{id}")
+	public CartaoDetalheResponse exibeCartaoId(@PathVariable Integer id) {
+        Cartao cartao = cartaoService.mostrarCartaoId(id);
+        return cartaoMapper.toCartaoDetalheResponse(cartao);
+
+	}
 
 	@PostMapping
 	public CartaoResponse cadastrarNovoCartao(@Valid @RequestBody CartaoRequest cartaoRequest){

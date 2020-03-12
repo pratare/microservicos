@@ -5,9 +5,15 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.itau.pagamento.models.Cartao;
+import com.itau.pagamento.client.CartaoDTO;
+import com.itau.pagamento.client.ClientCartao;
+import com.itau.pagamento.exceptions.CartaoInativoException;
+import com.itau.pagamento.exceptions.CartaoNaoExisteException;
 import com.itau.pagamento.models.Pagamento;
 import com.itau.pagamento.repository.PagamentoRepository;
+
+import feign.FeignException;
+import feign.FeignException.FeignClientException;
 
 @Component
 public class PagamentoService {
@@ -16,11 +22,19 @@ public class PagamentoService {
 	PagamentoRepository pagamentoRepository;
 	
 	@Autowired
-	CartaoService cartaoService;
+	ClientCartao cartaoService;
 	
 	public Pagamento criarPagamento(Pagamento pagamento) {
-		Cartao cartao = cartaoService.buscarCartao(pagamento.getCartao().getId());
-        pagamento.setCartao(cartao);
+		CartaoDTO cartaoDTO = null;
+		try {
+			cartaoDTO = cartaoService.buscaById(pagamento.getCartaoid());
+		} catch(FeignException.BadRequest e) {
+			throw new CartaoNaoExisteException("Escolha um cartão existente");
+		}
+		if(!cartaoDTO.getAtivo()) {
+			throw new CartaoInativoException("Favor escolher um cartão ativo");
+		}
+        pagamento.setCartaoid(cartaoDTO.getId());
 
 		return pagamentoRepository.save(pagamento);
 		 
