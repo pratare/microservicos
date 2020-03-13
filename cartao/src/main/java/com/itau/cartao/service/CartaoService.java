@@ -2,6 +2,9 @@ package com.itau.cartao.service;
 
 import java.util.Optional;
 
+import com.itau.cartao.client.ClienteOffLineException;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.netflix.hystrix.exception.HystrixRuntimeException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -46,17 +49,20 @@ public class CartaoService {
         return cartaoOptional.get();
 
     }
-    
+
     public Cartao criarCartao(Cartao cartao) {
         ClienteDTO byId = null;
-        
+
         try {
             byId = clientService.getClienteById(cartao.getClienteId());
-        } catch (FeignException.BadRequest  e){
-            throw new ClienteNotFoundException();
+        } catch (HystrixRuntimeException e){
+            if(e.getCause() instanceof CartaoNotFoundException) {
+                throw new ClienteNotFoundException();
+            }
+            throw new ClienteOffLineException();
         }
         cartao.setAtivo(false);
-        
+
         return cartaoRepository.save(cartao);
     }
 
