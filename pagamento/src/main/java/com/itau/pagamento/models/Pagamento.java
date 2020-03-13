@@ -21,7 +21,8 @@ public class Pagamento {
     @Column
     private BigDecimal valor;
 
-    private Integer cartaoid;
+    @Column
+    private Integer cartaoId;
 
 	public Integer getId() {
 		return id;
@@ -48,11 +49,11 @@ public class Pagamento {
 	}
 
 	public Integer getCartaoid() {
-		return cartaoid;
+		return cartaoId;
 	}
 
-	public void setCartaoid(Integer cartaoid) {
-		this.cartaoid = cartaoid;
+	public void setCartaoid(Integer cartaoId) {
+		this.cartaoId = cartaoId;
 	}
 	
 }

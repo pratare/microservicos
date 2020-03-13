@@ -35,8 +35,8 @@ public class PagamentoController {
 	}
 	
 	@GetMapping("/pagamentos/{id_cartao}")
-	public List<PagamentoSummaryInListResponse> listByCartaoId(@PathVariable Integer id) {
-        List<Pagamento> pagamentos = pagamentoService.listPagamentoByCartaoId(id);
+	public List<PagamentoSummaryInListResponse> listByCartaoId(@PathVariable Integer id_cartao) {
+        List<Pagamento> pagamentos = pagamentoService.listPagamentoByCartaoId(id_cartao);
         List<PagamentoSummaryInListResponse> pagamentoSummaryInListResponseList = pagamentos.stream()
                 .map(pagamento -> pagamentoMapper.toPagamentoSummaryInListResponse(pagamento))
                 .collect(Collectors.toList());

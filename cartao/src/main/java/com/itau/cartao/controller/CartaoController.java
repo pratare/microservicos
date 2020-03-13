@@ -31,7 +31,7 @@ public class CartaoController {
 
 	}
 	
-	@GetMapping("/{id}")
+	@GetMapping("/cartoes/{id}")
 	public CartaoDetalheResponse exibeCartaoId(@PathVariable Integer id) {
         Cartao cartao = cartaoService.mostrarCartaoId(id);
         return cartaoMapper.toCartaoDetalheResponse(cartao);

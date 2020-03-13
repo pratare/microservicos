@@ -6,10 +6,11 @@ import com.itau.cliente.models.Cliente;
 import com.itau.cliente.repository.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
-@Component
+@Service
 public class ClienteService {
 	
 	@Autowired

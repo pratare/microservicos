@@ -1,21 +1,9 @@
 package com.itau.pagamento.exceptions;
 
-public class CartaoNaoExisteException {
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
-	/**
-	 * 
-	 */
-	private String mensagem;
-	
-	private static final long serialVersionUID = 5341392302871870379L;
-	
-	public CartaoNaoExisteException (String mensagem) {
-		super();
-		this.mensagem = mensagem;
-	}
-	
-	public String getMensagem() {
-		return this.mensagem;
-	}
+@ResponseStatus(value= HttpStatus.BAD_REQUEST, reason = "Escolha um cartão existente")
+public class CartaoNaoExisteException  extends RuntimeException {
 
 }

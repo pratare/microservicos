@@ -14,7 +14,7 @@ public class PagamentoMapper {
 		Pagamento pagamento = new Pagamento();
 		pagamento.setDescricao(pagamentoRequest.getDescricao());
 		pagamento.setValor(pagamentoRequest.getValor());
-		pagamento.setCartaoid(pagamentoRequest.getCartaoid());
+		pagamento.setCartaoid(pagamentoRequest.getCartaoId());
 		
 		return pagamento;
 	}

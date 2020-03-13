@@ -13,8 +13,9 @@ import com.itau.cartao.models.Cartao;
 import com.itau.cartao.repository.CartaoRepository;
 
 import feign.FeignException;
+import org.springframework.stereotype.Service;
 
-@Component
+@Service
 public class CartaoService {
 
     @Autowired

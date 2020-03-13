@@ -14,6 +14,7 @@ import com.itau.pagamento.repository.PagamentoRepository;
 
 import feign.FeignException;
 import feign.FeignException.FeignClientException;
+import org.springframework.stereotype.Service;
 
 @Component
 public class PagamentoService {
@@ -22,17 +23,17 @@ public class PagamentoService {
 	PagamentoRepository pagamentoRepository;
 	
 	@Autowired
-	ClientCartao cartaoService;
+	ClientCartao clientCartao;
 	
 	public Pagamento criarPagamento(Pagamento pagamento) {
 		CartaoDTO cartaoDTO = null;
 		try {
-			cartaoDTO = cartaoService.buscaById(pagamento.getCartaoid());
+			cartaoDTO = clientCartao.buscaById(pagamento.getCartaoid());
 		} catch(FeignException.BadRequest e) {
-			throw new CartaoNaoExisteException("Escolha um cartão existente");
+			throw new CartaoNaoExisteException();
 		}
 		if(!cartaoDTO.getAtivo()) {
-			throw new CartaoInativoException("Favor escolher um cartão ativo");
+			throw new CartaoInativoException();
 		}
         pagamento.setCartaoid(cartaoDTO.getId());
 
@@ -41,7 +42,7 @@ public class PagamentoService {
 	}
 
 	public List<Pagamento> listPagamentoByCartaoId(Integer id) {
-        return pagamentoRepository.findAllByCartao_Id(id);
+        return pagamentoRepository.findAllByCartaoId(id);
     }
 
 	

@@ -8,6 +8,7 @@ import com.itau.pagamento.models.Pagamento;
 
 public interface PagamentoRepository extends CrudRepository<Pagamento, Integer>{
 
-	 List<Pagamento> findAllByCartao_Id(Integer id);
+
+	 List<Pagamento> findAllByCartaoId(Integer cartaoId);
 	 
 }

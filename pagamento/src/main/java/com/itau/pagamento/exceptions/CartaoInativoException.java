@@ -1,24 +1,9 @@
 package com.itau.pagamento.exceptions;
 
-public class CartaoInativoException {
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -8340929093810538994L;
-	private String mensagem;
-	
-	public CartaoInativoException(String mensagem) {
-		super();
-		this.mensagem = mensagem;
-	}
-	
-	public String getMensagem() {
-		return mensagem;
-	}
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
-	public void setMensagem(String mensagem) {
-		this.mensagem = mensagem;
-	}
+@ResponseStatus(value= HttpStatus.BAD_REQUEST, reason = "Favor escolher um cartão ativo")
+public class CartaoInativoException extends RuntimeException {
 
 }

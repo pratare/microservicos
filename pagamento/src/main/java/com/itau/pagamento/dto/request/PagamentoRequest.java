@@ -1,21 +1,24 @@
 package com.itau.pagamento.dto.request;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.math.BigDecimal;
 
 public class PagamentoRequest {
-	
-	private Integer cartaoid;
+
+	@JsonProperty(value = "cartao_id")
+	private Integer cartaoId;
 	
 	private String descricao;
 	
 	private BigDecimal valor;
 
-	public Integer getCartaoid() {
-		return cartaoid;
+	public Integer getCartaoId() {
+		return cartaoId;
 	}
 
-	public void setCartaoid(Integer cartaoid) {
-		this.cartaoid = cartaoid;
+	public void setCartaoId(Integer cartaoId) {
+		this.cartaoId = cartaoId;
 	}
 
 	public String getDescricao() {
